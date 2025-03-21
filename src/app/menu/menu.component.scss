@@ -1,0 +1,75 @@
+.header {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  background: #7B8FA1;
+  padding: 15px;
+  border-bottom: 3px solid #f7bf7a;
+  position: fixed;
+  width: calc(100% - 40px); /* Ancho completo menos el padding */
+  top: 20px;
+  z-index: 1000;
+
+  .logo {
+    width: 115px; /* Reduzco el tamaño del logo */
+    height:70px;
+    margin-right: 10px;
+  }
+
+  h1 {
+    font-size: 22px; /* Reduzco un poco el título */
+    color: #F9F9F9;
+  }
+}
+
+.sidebar {
+  background: #567189;
+  padding: 10px; /* Reduzco padding para más espacio */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100vh - 165px); /* Ajusto para que quepa todo */
+  overflow: hidden; /* Elimino el scroll */
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin-bottom: 5px; /* Menos espacio entre opciones */
+    }
+
+    a {
+      display: block;
+      padding: 8px 10px; /* Reduzco el padding */
+      font-size: 14px; /* Texto más pequeño */
+      background: #6f8aa1;
+      text-decoration: none;
+      color: #f9f9f9;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: #9eb2c2;
+      }
+    }
+  }
+
+  /* Espacio reservado para la publicidad */
+  .advertisement {
+    border: 3px solid #f7bf7a;
+    padding: 10px; /* Reduzco padding */
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #cfb997;
+    color: #3e5975;
+    font-weight: bold;
+    border-radius: 10px;
+    height: 120px; /* Aseguro espacio fijo */
+  }
+}
