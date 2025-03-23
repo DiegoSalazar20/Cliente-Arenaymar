@@ -1,23 +1,30 @@
 <header class="header">
-    <img src="https://i.ibb.co/fYYxbjmG/logo-1.png" alt="A&M" class="logo" />
-    <h1>Arena & Mar Resort</h1>
-  </header>
-  
-<nav class="sidebar">
-    <ul>
-      <li (click)="redirigir('/home')"><a>Home</a></li>
-      <li (click)="redirigir('/sobrenosotros')"><a>Sobre Nosotros</a></li>
-      <li (click)="redirigir('/facilidades')"><a>Facilidades</a></li>
-      <li (click)="redirigir('/comollegar')"><a>¿Cómo llegar?</a></li>
-      <li (click)="redirigir('/tarifas')"><a>Tarifas</a></li>
-      <li (click)="redirigir('/reservaenlinea')"><a>Reservar en Línea</a></li>
-      <li (click)="redirigir('/contectenos')"><a>Contáctenos</a></li>
+  <img src="https://i.ibb.co/fYYxbjmG/logo-1.png" alt="A&M" class="logo" />
+  <h1>Arena & Mar Resort</h1>
+</header>
 
-<aside class="advertisement">
-      <p>Área de publicidad</p>
+<nav class="sidebar">
+  <ul>
+    <li (click)="redirigir('/home')"><a>Home</a></li>
+    <li (click)="redirigir('/sobrenosotros')"><a>Sobre Nosotros</a></li>
+    <li (click)="redirigir('/facilidades')"><a>Facilidades</a></li>
+    <li (click)="redirigir('/comollegar')"><a>¿Cómo llegar?</a></li>
+    <li (click)="redirigir('/tarifas')"><a>Tarifas</a></li>
+    <li (click)="redirigir('/reservaenlinea')"><a>Reservar en Línea</a></li>
+    <li (click)="redirigir('/contectenos')"><a>Contáctenos</a></li>
+  </ul>
+
+  <aside class="advertisement" *ngIf="publicidades.length > 0">
+      <div class="publicidad-contenedor animate" (animationiteration)="siguientePublicidad()">
+        <a *ngIf="imagenAnterior" [href]="imagenAnterior.urlDestino" target="_blank">
+          <img [src]="imagenAnterior.urlImagen" [alt]="imagenAnterior.nombre" class="slide-out" />
+        </a>
+
+        <a [href]="publicidades[indiceActual]?.urlDestino" target="_blank">
+          <img #imagen [src]="publicidades[indiceActual]?.urlImagen" [alt]="publicidades[indiceActual]?.nombre"
+            class="slide-in" />
+        </a>
+      </div>
     </aside>
-    </ul>
-  
     
-  </nav>
-  
+</nav>
