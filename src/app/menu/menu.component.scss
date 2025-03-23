@@ -59,7 +59,7 @@
   }
 
 
-  .advertisement {
+  .publicidad {
     border: 3px solid #f7bf7a;
     padding: 10px;
     margin-top: 0px;
@@ -73,7 +73,7 @@
     align-items: center;
     justify-content: center;
 
-    .publicidad-contenedor {
+    .contenedor-publicidad {
       position: relative;
       width: 100%;
       height: 100%;
@@ -94,60 +94,60 @@
         }
       }
 
-      &.slide-in {
-        animation: slideInDesdeDerecha 0.4s ease-in-out;
+      &.entrar-derecha {
+        animation: entrarDesdeLaDerecha 0.4s ease-in-out;
       }
     }
   }
 }
 
 
-@keyframes slideInDesdeDerecha {
-  from {
-    transform: translateX(100%);
-    opacity: 0.2;
+  @keyframes entrarDesdeLaDerecha {
+    from {
+      transform: translateX(100%);
+      opacity: 0.2;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
-  to {
-    transform: translateX(0);
-    opacity: 1;
+  
+  @keyframes salirHaciaIzquierda {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0.2;
+    }
   }
-}
-
-@keyframes slideOutHaciaIzquierda {
-  from {
-    transform: translateX(0);
-    opacity: 1;
+  
+  @keyframes rotarPublicidad {
+    0% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 1; }
   }
-  to {
-    transform: translateX(-100%);
-    opacity: 0.2;
+  
+  .animar {
+    animation: rotarPublicidad 10s linear infinite;
   }
-}
-
-@keyframes rotarPublicidad {
-  0% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { opacity: 1; }
-}
-
-.animate {
-  animation: rotarPublicidad 10s linear infinite;
-}
-
-.slide-in {
-  animation: slideInDesdeDerecha 0.4s ease-in-out;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.slide-out {
-  animation: slideOutHaciaIzquierda 0.4s ease-in-out;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
+  
+  .entrar-derecha {
+    animation: entrarDesdeLaDerecha 0.4s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .salir-izquierda {
+    animation: salirHaciaIzquierda 0.4s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
