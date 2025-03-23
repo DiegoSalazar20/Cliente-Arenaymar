@@ -14,17 +14,18 @@
     <li (click)="redirigir('/contectenos')"><a>Contáctenos</a></li>
   </ul>
 
-  <aside class="advertisement" *ngIf="publicidades.length > 0">
-      <div class="publicidad-contenedor animate" (animationiteration)="siguientePublicidad()">
-        <a *ngIf="imagenAnterior" [href]="imagenAnterior.urlDestino" target="_blank">
-          <img [src]="imagenAnterior.urlImagen" [alt]="imagenAnterior.nombre" class="slide-out" />
-        </a>
+  <aside class="publicidad" *ngIf="listaPublicidades.length > 0">
+    <div class="contenedor-publicidad animar" (animationiteration)="mostrarSiguientePublicidad()">
+      <a *ngIf="publicidadAnterior" [href]="publicidadAnterior.urlDestino" target="_blank">
+        <img [src]="publicidadAnterior.urlImagen" [alt]="publicidadAnterior.nombre" class="salir-izquierda" />
+      </a>
 
-        <a [href]="publicidades[indiceActual]?.urlDestino" target="_blank">
-          <img #imagen [src]="publicidades[indiceActual]?.urlImagen" [alt]="publicidades[indiceActual]?.nombre"
-            class="slide-in" />
-        </a>
-      </div>
-    </aside>
-    
+      <a [href]="listaPublicidades[indiceActual]?.urlDestino" target="_blank">
+        <img #imagen [src]="listaPublicidades[indiceActual]?.urlImagen" [alt]="listaPublicidades[indiceActual]?.nombre"
+          class="entrar-derecha" />
+      </a>
+    </div>
+  </aside>
+
+
 </nav>
