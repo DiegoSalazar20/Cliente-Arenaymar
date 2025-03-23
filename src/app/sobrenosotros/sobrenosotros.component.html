@@ -1,1 +1,29 @@
-<p>sobrenosotros works!</p>
+<div class="container">
+    <app-menu></app-menu>
+  
+    <section class="main-content">
+      <div class="content-wrapper">
+        <article>
+          <h2>Sobre Nosotros</h2>
+          <p>Disfruta de todos los servicios y comodidades que tenemos para ti.</p>
+  
+          <h2>Galería</h2>
+          <br>
+          <div class="galeria-container">
+            <div class="imagen-principal" *ngIf="seleccionada">
+              <img [src]="seleccionada.imagen" [alt]="seleccionada.nombre" />
+
+            </div>
+  
+            
+            <div class="miniaturas">
+              <div class="miniatura" *ngFor="let f of facilidades" (click)="seleccionar(f)">
+                <img [src]="f.imagen" [alt]="f.nombre" [class.activa]="f === seleccionada" />
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+  
