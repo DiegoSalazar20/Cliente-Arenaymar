@@ -1,11 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MenuComponent } from '../menu/menu.component';
 
 @Component({
   selector: 'app-facilidades',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, HttpClientModule, MenuComponent],
   templateUrl: './facilidades.component.html',
   styleUrl: './facilidades.component.scss'
 })
-export class FacilidadesComponent {
+export class FacilidadesComponent implements OnInit {
+  facilidades: any[] = [];
+  errorCargando: boolean = false;
+  index = 0;
+
+  private apiUrl = 'http://arenaymar.somee.com/api/Facilidades/Visibles';
+
+  constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {
+    this.http.get<any[]>(this.apiUrl).subscribe({
+      next: (data) => {
+        this.facilidades = data;
+      },
+      error: (err) => {
+        console.error('Error al cargar facilidades:', err);
+        this.errorCargando = true;
+      }
+    });
+  }
 
 }

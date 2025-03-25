@@ -1,1 +1,21 @@
-<p>facilidades works!</p>
+<div class="container">
+    <app-menu></app-menu>
+
+    <section class="main-content">
+        <div class="content-wrapper">
+            <h2>Facilidades</h2>
+            <div *ngIf="errorCargando">
+                <p>Error al cargar las facilidades. Por favor, intenta nuevamente más tarde.</p>
+            </div>
+            <div *ngFor="let facilidad of facilidades; let i = index" class="facilidad"
+                [ngClass]="{'facilidad-1': (i + 1) % 2 !== 0, 'facilidad-2': (i + 1) % 2 === 0}">
+                <div class="imagen-facilidad">
+                    <img [src]="facilidad.imagen" [alt]="facilidad.nombre" />
+                </div>
+                <div class="descripcion-facilidad">
+                    <p>{{facilidad.descripcion}}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
