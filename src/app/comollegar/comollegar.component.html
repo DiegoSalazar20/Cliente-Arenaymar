@@ -1,1 +1,19 @@
-<p>comollegar works!</p>
+<div class="container">
+    <app-menu></app-menu>
+    <section class="main-content">
+      <div class="content-wrapper">
+        <article>
+          <h2>¿Cómo llegar?</h2>
+          <p>{{ descripcion }}</p>
+  
+          <iframe
+            *ngIf="mapaUrl"
+            [src]="mapaUrl"
+            class="mapa"
+            allowfullscreen>
+          </iframe>
+        </article>
+      </div>
+    </section>
+  </div>
+  
