@@ -167,6 +167,11 @@ export class ReservaenlineaComponent {
       return;
     }
 
+    if(!this.validarEmail(this.emailReserva)){
+      this.mensajeErrorModal = 'Ingrese un correo electrónico válido.';
+      return;
+    }
+
     const fechaLlegada = new Date(this.fechaLlegada);
     const fechaSalida = new Date(this.fechaSalida);
 
@@ -254,5 +259,10 @@ export class ReservaenlineaComponent {
         console.error('Error al enviar el correo:', err);
       }
     });
+  }
+
+  private validarEmail(email: string): boolean {
+    const patron = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    return patron.test(email);
   }
 }

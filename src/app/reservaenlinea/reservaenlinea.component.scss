@@ -466,5 +466,28 @@
   }
 }
 
+input[type="date"],
+select {
+  background-color: #fdf6fd;
+  border: 1px solid #6f8aa1; 
+  color: #3E5975;            
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  border-radius: 0.7rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
 
-  
+input[type="date"]:focus,
+select:focus {
+  border-color: #567189; 
+  box-shadow: 0 0 4px rgba(86, 113, 137, 0.3);
+}
+
+input[type="date"]:hover,
+select:hover {
+  border-color: #9eb2c2; 
+}
