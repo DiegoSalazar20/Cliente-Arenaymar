@@ -1,1 +1,132 @@
-<p>reservaenlinea works!</p>
+<div class="container">
+  <app-menu></app-menu>
+
+  <section class="main-content">
+    <div class="formulario-reserva">
+      <h2>Reservar en Línea</h2>
+
+      <form (ngSubmit)="ConsultarDisponibilidad()" #formulario="ngForm">
+        <div class="grupo-campos">
+          <div class="campo">
+            <label for="fechaLlegada">Fecha de Llegada</label>
+            <input type="date" id="fechaLlegada" [(ngModel)]="fechaLlegada" name="fechaLlegada" required />
+          </div>
+
+          <div class="campo">
+            <label for="fechaSalida">Fecha de Salida</label>
+            <input type="date" id="fechaSalida" [(ngModel)]="fechaSalida" name="fechaSalida" required />
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="tipoHabitacion">Tipo de Habitación</label>
+          <select id="tipoHabitacion" [(ngModel)]="tipoHabitacion" name="tipoHabitacion">
+
+            <option value="">Todas las Habitaciones</option>
+            <option value="1">Habitación junior</option>
+            <option value="2">Habitación estándar</option>
+            <option value="3">Suite</option>
+          </select>
+        </div>
+
+        <div class="boton-centrado">
+          <button type="submit">Consultar disponibilidad</button>
+        </div>
+
+        <div *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</div>
+        <div *ngIf="mensajeInfo" class="mensaje-info">{{ mensajeInfo }}</div>
+      </form>
+    </div>
+
+    <div class="cards-container" *ngIf="tiposDisponibles && tiposDisponibles.length">
+      <div class="room-card" *ngFor="let tipo of tiposDisponibles">
+        <img *ngIf="tipo.Imagen" [src]="tipo.Imagen" alt="{{ tipo.Nombre }}" />
+        <div class="card-content">
+          <h3>{{ tipo.Nombre }}</h3>
+          <p>{{ tipo.Descripcion }}</p>
+          <div class="total">Total a pagar: ₡{{ tipo.TotalAPagar }}</div>
+          <button (click)="abrirModalReserva(tipo)">Reservar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="modal-backdrop" *ngIf="mostrarModal">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2>Confirmar reserva</h2>
+      <button class="close-button" (click)="cerrarModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field">
+        <label for="nombreModal">Nombre:</label>
+        <input id="nombreModal" type="text" [(ngModel)]="nombreReserva" name="nombreReserva" />
+      </div>
+      <div class="modal-field">
+        <label for="apellidoModal">Apellidos:</label>
+        <input id="apellidoModal" type="text" [(ngModel)]="apellidoReserva" name="apellidoReserva" />
+      </div>
+      <div class="modal-field">
+        <label for="correoModal">Correo electrónico:</label>
+        <input id="correoModal" type="email" [(ngModel)]="emailReserva" name="emailReserva" />
+      </div>
+      <div class="modal-field">
+        <label for="tarjetaModal">Tarjeta de crédito:</label>
+        <input id="tarjetaModal" type="text" [(ngModel)]="tarjetaCompleta" name="tarjetaCompleta" />
+      </div>
+      <p>Monto a pagar: <strong>₡{{ tipoSeleccionado?.TotalAPagar }}</strong></p>
+      <div *ngIf="mensajeErrorModal" class="modal-error">
+        {{ mensajeErrorModal }}
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
+      <button class="btn-confirm" (click)="confirmarReserva()">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" *ngIf="mostrarModalConfirmacion">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2>Reserva realizada</h2>
+      <button class="close-button" (click)="cerrarModalConfirmacion()">×</button>
+    </div>
+    <div class="modal-body">
+      <p>Gracias {{nombreReserva}}! Su reserva fue realizada con exito</p>
+      <br>
+      <p>Número de reservación: {{numeroReserva}}</p>
+      <br>
+      <p>Acabamos de enviar toda la información a la dirección {{emailReserva}} para mayor facilidad</p>
+      <br>
+      <p>Gracias por preferirnos</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-confirm" (click)="cerrarModalConfirmacion()">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-backdrop" *ngIf="mostrarModalError">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2>Reserva realizada</h2>
+      <button class="close-button" (click)="cerrarModalError()">×</button>
+    </div>
+    <div class="modal-body">
+      <p>Lo sentimos, esta habitación ya no se encuentra disponible</p>
+      <br>
+      <p>Seleccione otro tipo de habitación o cambie el rango de fechas para seguir con la reserva</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-confirm" (click)="cerrarModalError()">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
