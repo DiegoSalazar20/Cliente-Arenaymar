@@ -40,25 +40,46 @@
     padding: 0;
 
     li {
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     }
-
+    
     a {
+      position: relative;
       display: block;
-      padding: 8px 10px;
-      font-size: 14px;
-      background: #6f8aa1;
+      padding: 6px 10px;
+      font-size: 16px;
+      background-color: #6f8aa1;  
       text-decoration: none;
       color: #f9f9f9;
-      border-radius: 5px;
+      border-radius: 8px;
       text-align: center;
       font-weight: bold;
-      transition: background 0.3s ease;
-
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    
+      &:after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 5px;  
+        transform: translateX(-50%);
+        width: 0%;
+        height: 3px;
+        background: linear-gradient(to right, #f7bf7a, #CFB997); 
+        border-radius: 2px;
+        transition: width 0.3s ease;
+      }
+    
       &:hover {
-        background: #9eb2c2;
+        background-color: #9eb2c2;  
+        transform: scale(1.05);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    
+        &:after {
+          width: 80%; 
+        }
       }
     }
+    
   }
 
 
@@ -74,6 +95,7 @@
     align-items: center;
     justify-content: center;
     margin: auto 0;
+    margin-top: 6%;
   
     .contenedor-publicidad {
       position: relative;
