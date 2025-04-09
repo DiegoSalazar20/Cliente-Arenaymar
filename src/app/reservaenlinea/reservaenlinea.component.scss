@@ -123,18 +123,40 @@
   }
   
   button {
-    padding: 6px 12px;
-    font-size: 14px;
-    border-radius: 10px;
-    border: 1px solid #000;
-    background-color: #f1f1f1;
+    position: relative;
+    padding: 10px 20px;  
+    font-size: 16px;
+    border: none;          
+    border-radius: 20px;
+    background-color: #6f8aa1;  
+      text-decoration: none;
+      color: #f9f9f9;           
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  button::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(to right, #f7bf7a, #CFB997);
+    border-radius: 2px;
+    transition: width 0.3s ease;
   }
   
   button:hover {
-    background-color: #e0e0e0;
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
   }
+  
+  button:hover::after {
+    width: 80%;
+  }
+  
   
   .boton-centrado {
     display: flex;
@@ -208,21 +230,40 @@
     color: #567189;
     margin-bottom: 10px;
   }
-  
+
   .room-card button {
     align-self: center;
-    background-color: #f7bf7a;
-    color: #3E5975;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
+    padding: 10px 20px;  
     font-size: 16px;
+    border: none;          
+    border-radius: 20px;
+    background-color: #f7bf7a;  
+    text-decoration: none;
+    color: #3E5975;           
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .room-card button::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(to right, #3E5975, #7B8FA1);
+    border-radius: 2px;
+    transition: width 0.3s ease;
   }
   
   .room-card button:hover {
-    background-color: #CFB997;
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .room-card button:hover::after {
+    width: 80%;
   }
   
   @media (max-width: 768px) {
