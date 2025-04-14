@@ -1,1 +1,18 @@
-<p>tarifas works!</p>
+<div class="container">
+    <app-menu></app-menu>
+
+    <section class="main-content">
+        <h2>Tarifas</h2>
+
+        <div class="cards-container" *ngIf="tiposHabitacion && tiposHabitacion.length">
+            <div class="room-card" *ngFor="let tipo of tiposHabitacion">
+                <img *ngIf="tipo.imagen" [src]="tipo.imagen" alt="{{ tipo.nombre }}" />
+                <div class="card-content">
+                    <h3>{{ tipo.nombre }}</h3>
+                    <p>{{ tipo.descripcion }}</p>
+                    <div class="total">Total a pagar: ₡{{ tipo.precio }}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
