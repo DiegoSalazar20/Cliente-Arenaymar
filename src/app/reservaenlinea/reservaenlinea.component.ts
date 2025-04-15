@@ -3,12 +3,31 @@ import { MenuComponent } from '../menu/menu.component';
 import { HttpClient, HttpClientModule, HttpParams } from '@angular/common/http';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {trigger,transition,style,animate,keyframes} from '@angular/animations';
 
 @Component({
   selector: 'app-reservaenlinea',
   imports: [CommonModule, MenuComponent, HttpClientModule, FormsModule],
   templateUrl: './reservaenlinea.component.html',
-  styleUrl: './reservaenlinea.component.scss'
+  styleUrl: './reservaenlinea.component.scss',
+  animations: [
+    trigger('animacionSalto', [
+      transition(':enter', [
+        animate(
+          '500ms ease-out',
+          keyframes([
+            style({ transform: 'scale(0.5)', opacity: 0, offset: 0 }),
+            style({ transform: 'scale(1.1)', opacity: 1, offset: 0.6 }),
+            style({ transform: 'scale(0.95)', offset: 0.8 }),
+            style({ transform: 'scale(1)', offset: 1 })
+          ])
+        )
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({ opacity: 0, transform: 'scale(0.9)' }))
+      ])
+    ])
+  ]
 })
 export class ReservaenlineaComponent {
   fechaLlegada!: Date;
@@ -30,6 +49,10 @@ export class ReservaenlineaComponent {
   tarjetaCompleta: string = '';
   mensajeErrorModal: string = '';
   numeroReserva: string ='';
+
+  cerrandoModal: boolean = false;
+  cerrandoConfirmacion: boolean = false;
+  cerrandoError: boolean = false;
 
   constructor(private http: HttpClient, ){}
 
@@ -143,15 +166,31 @@ export class ReservaenlineaComponent {
   }
 
   cerrarModal() {
-    this.mostrarModal = false;
+    this.cerrandoModal = true;
   }
 
   cerrarModalConfirmacion() {
-    this.mostrarModalConfirmacion = false;
+    this.cerrandoConfirmacion = true;
   }
 
   cerrarModalError() {
-    this.mostrarModalError = false;
+    this.cerrandoError = true;
+  }
+
+  onAnimationEnd(tipo: 'modal' | 'confirmacion' | 'error') {
+    if (tipo === 'modal' && this.cerrandoModal) {
+      this.mostrarModal = false;
+      this.cerrandoModal = false;
+    }
+    if (tipo === 'confirmacion' && this.cerrandoConfirmacion) {
+      alert('a');
+      this.mostrarModalConfirmacion = false;
+      this.cerrandoConfirmacion = false;
+    }
+    if (tipo === 'error' && this.cerrandoError) {
+      this.mostrarModalError = false;
+      this.cerrandoError = false;
+    }
   }
 
   confirmarReserva() {
