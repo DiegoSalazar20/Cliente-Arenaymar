@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient) { }
 
   publicidades: any[] = [];
-  apiPublicidad = 'http://arenaymar.somee.com/api/Publicidad/Visibles'
+  apiPublicidad = 'https://arenaymar-frdyg5caarhsd2g5.eastus-01.azurewebsites.net/api/Publicidad/Visibles'
   imagenAnterior: any = null;
   listaPublicidades: any[] = [];
   publicidadAnterior: any = null;

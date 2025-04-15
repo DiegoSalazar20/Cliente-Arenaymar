@@ -21,7 +21,7 @@ export class TarifasComponent implements OnInit {
   }
 
   ObtenerTarifas(){
-    let apiUrl = 'http://arenaymar.somee.com/api/TipoHabitacion/ObtenerOfertas';
+    let apiUrl = 'https://arenaymar-frdyg5caarhsd2g5.eastus-01.azurewebsites.net/api/TipoHabitacion/ObtenerOfertas';
     this.http.get<any[]>(apiUrl).subscribe({
       next: (response) => {
         if (response.length === 0) {

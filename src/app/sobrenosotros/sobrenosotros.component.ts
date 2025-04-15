@@ -16,8 +16,8 @@ export class SobrenosotrosComponent implements OnInit {
   errorCargando: boolean = false;
   textoSobreNosotros: string = '';
 
-  private apiUrl = 'http://arenaymar.somee.com/api/Facilidades/Visibles';
-  private apiUrlSobreNosotros = 'http://arenaymar.somee.com/api/SobreNosotros';
+  private apiUrl = 'https://arenaymar-frdyg5caarhsd2g5.eastus-01.azurewebsites.net/api/Facilidades/Visibles';
+  private apiUrlSobreNosotros = 'https://arenaymar-frdyg5caarhsd2g5.eastus-01.azurewebsites.net/api/SobreNosotros';
 
   constructor(private http: HttpClient) {}
 

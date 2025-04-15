@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   contenidoPrincipal: string = '';
   errorCargandoContenido: boolean = false;
 
-  private apiUrl = 'http://arenaymar.somee.com/api/Home';
+  private apiUrl = 'https://arenaymar-frdyg5caarhsd2g5.eastus-01.azurewebsites.net/api/Home';
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: object) {}
 
