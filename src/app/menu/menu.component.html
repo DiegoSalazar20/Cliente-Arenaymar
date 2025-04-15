@@ -1,10 +1,11 @@
 <header class="header">
+  <button class="mobile-menu-toggle" (click)="toggleMenu()">☰</button>
   <img src="https://i.ibb.co/fYYxbjmG/logo-1.png" alt="A&M" class="logo" />
   <h1>Arena & Mar Resort</h1>
-  <button class="boton-reservar" (click)="redirigir('/reservaenlinea')"> Reservar ahora </button>
+  <button class="boton-reservar" (click)="redirigir('/reservaenlinea')">Reservar ahora</button>
 </header>
 
-<nav class="sidebar">
+<nav class="sidebar" [class.active]="menuOpen">
   <ul>
     <li (click)="redirigir('/home')"><a>Home</a></li>
     <li (click)="redirigir('/sobrenosotros')"><a>Sobre Nosotros</a></li>
@@ -12,7 +13,7 @@
     <li (click)="redirigir('/comollegar')"><a>¿Cómo llegar?</a></li>
     <li (click)="redirigir('/tarifas')"><a>Tarifas</a></li>
     <li (click)="redirigir('/reservaenlinea')"><a>Reservar en Línea</a></li>
-    <li (click)="redirigir('/contactenos')"><a class="holographic-card" >Contáctenos</a></li>
+    <li (click)="redirigir('/contactenos')"><a class="holographic-card">Contáctenos</a></li>
   </ul>
 
   <aside class="publicidad" *ngIf="listaPublicidades.length > 0">
@@ -20,15 +21,12 @@
       <a *ngIf="publicidadAnterior" [href]="publicidadAnterior.urlDestino" target="_blank">
         <img [src]="publicidadAnterior.urlImagen" [alt]="publicidadAnterior.nombre" class="salir-izquierda" />
       </a>
-
       <a [href]="listaPublicidades[indiceActual]?.urlDestino" target="_blank">
         <img #imagen [src]="listaPublicidades[indiceActual]?.urlImagen" [alt]="listaPublicidades[indiceActual]?.nombre"
           class="entrar-derecha" />
       </a>
     </div>
   </aside>
-
-
 </nav>
 
 <footer class="footer">
