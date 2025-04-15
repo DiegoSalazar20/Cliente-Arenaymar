@@ -183,7 +183,6 @@ export class ReservaenlineaComponent {
       this.cerrandoModal = false;
     }
     if (tipo === 'confirmacion' && this.cerrandoConfirmacion) {
-      alert('a');
       this.mostrarModalConfirmacion = false;
       this.cerrandoConfirmacion = false;
     }
