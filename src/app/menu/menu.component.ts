@@ -21,6 +21,7 @@ export class MenuComponent implements OnInit {
   publicidadAnterior: any = null;
   indiceActual: number = 0;
   animacionPendiente: boolean = false;
+  public menuOpen: boolean = false;
 
   @ViewChild('imagen') imagen!: ElementRef<HTMLImageElement>;
 
@@ -29,6 +30,10 @@ export class MenuComponent implements OnInit {
     this.http.get<any[]>(this.apiPublicidad).subscribe((datos) => {
       this.listaPublicidades = datos;
     });
+  }
+
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
   }
 
   mostrarSiguientePublicidad(): void {

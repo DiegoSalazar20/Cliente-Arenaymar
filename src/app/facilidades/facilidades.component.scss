@@ -101,4 +101,87 @@ h2 {
     margin: 0;
     text-align: justify;
   }
+
+  @media (max-width: 480px) {
+  html, body {
+    overflow: auto;
+  }
+  
+  .container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr; 
+    grid-template-rows: auto auto;  
+    gap: 10px;
+    padding: 10px;
+    padding-top: 130px;  
+    overflow: visible;
+    height: auto;
+  }
+  
+  app-menu {
+    width: 100%;
+  }
+  
+  .main-content {
+    margin: 0;
+    width: 100%;
+    height: auto;
+    overflow-y: visible;
+    padding: 10px;  
+  }
+  
+  .main-content .content-wrapper {
+    display: block;
+    gap: 10px;
+  }
+  
+  .main-content .banner {
+    max-width: 100%;
+  }
+
+  .facilidad {
+    display: flex;
+    flex-direction: column;
+    background-color: #fdf6fd;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(111, 138, 161, 0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 30px;
+    border: 1px solid #CFB997;
+  }
+  
+  .facilidad:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(111, 138, 161, 0.35);
+  }
+  
+  .imagen-facilidad {
+    width: 100%;
+    height: auto;
+    flex-shrink: 0;
+  }
+  
+  .imagen-facilidad img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  
+  .descripcion-facilidad {
+    padding: 24px;
+    background: linear-gradient(to right, #7B8FA1, #3E5975);
+    text-align: center; 
+  }
+  
+  .descripcion-facilidad p {
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0;
+    text-align: justify; 
+  }
+  
+}
   
