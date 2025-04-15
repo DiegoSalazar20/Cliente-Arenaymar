@@ -15,7 +15,7 @@ export class ComollegarComponent implements OnInit {
   descripcion: string = '';
   mapaUrl: SafeResourceUrl = '';
 
-  private apiUrl = 'http://arenaymar.somee.com/api/ComoLlegar';
+  private apiUrl = 'https://arenaymar-frdyg5caarhsd2g5.eastus-01.azurewebsites.net/api/ComoLlegar';
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 

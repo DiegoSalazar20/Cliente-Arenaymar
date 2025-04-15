@@ -15,7 +15,7 @@ export class FacilidadesComponent implements OnInit {
   errorCargando: boolean = false;
   index = 0;
 
-  private apiUrl = 'http://arenaymar.somee.com/api/Facilidades/Visibles';
+  private apiUrl = 'https://arenaymar-frdyg5caarhsd2g5.eastus-01.azurewebsites.net/api/Facilidades/Visibles';
 
   constructor(private http: HttpClient) { }
 

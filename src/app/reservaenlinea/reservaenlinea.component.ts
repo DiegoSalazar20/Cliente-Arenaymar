@@ -86,7 +86,7 @@ export class ReservaenlineaComponent {
         params = params.set('idTipoHabitacion', this.tipoHabitacion.toString());
       }
     }
-    let apiUrl = 'http://arenaymar.somee.com/api/Habitacion/Disponibilidad';
+    let apiUrl = 'https://arenaymar-frdyg5caarhsd2g5.eastus-01.azurewebsites.net/api/Habitacion/Disponibilidad';
     this.http.get<any[]>(apiUrl, { params: params }).subscribe({
       next: (response) => {
         if (response.length === 0) {
@@ -130,7 +130,7 @@ export class ReservaenlineaComponent {
       .set('fechainicio', fechaLlegada.toISOString())
       .set('fechafin', fechaSalida.toISOString());
 
-    let apiUrl = 'http://arenaymar.somee.com/api/Habitacion/Disponibilidad';
+    let apiUrl = 'https://arenaymar-frdyg5caarhsd2g5.eastus-01.azurewebsites.net/api/Habitacion/Disponibilidad';
     this.http.get<any[]>(apiUrl, { params: params }).subscribe({
       next: (response) => {
         if (response.length === 0) {
@@ -227,7 +227,7 @@ export class ReservaenlineaComponent {
       fechaSalida: fechaSalida.toISOString()
     };
 
-    this.http.post('http://arenaymar.somee.com/api/Reserva', JSON.stringify(body), {
+    this.http.post('https://arenaymar-frdyg5caarhsd2g5.eastus-01.azurewebsites.net/api/Reserva', JSON.stringify(body), {
       headers: { 'Content-Type': 'application/json' }
     }).subscribe({
       next: (resp: any) => {
@@ -287,7 +287,7 @@ export class ReservaenlineaComponent {
       tipoHabitacion: this.tipoSeleccionado?.Nombre
     };
   
-    this.http.post('http://arenaymar.somee.com/api/Correo', JSON.stringify(correoBody), {
+    this.http.post('https://arenaymar-frdyg5caarhsd2g5.eastus-01.azurewebsites.net/api/Correo', JSON.stringify(correoBody), {
       headers: { 'Content-Type': 'application/json' },
       responseType: 'text'
     }).subscribe({
