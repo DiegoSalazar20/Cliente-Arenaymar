@@ -52,8 +52,11 @@
   </section>
 </div>
 
-<div class="modal-backdrop" *ngIf="mostrarModal">
-  <div class="modal-container">
+<div class="modal-backdrop" *ngIf="mostrarModal" @animacionSalto>
+  <div class="modal-container"
+       [ngClass]="{'cerrando': cerrandoModal}"
+       (animationend)="onAnimationEnd('modal')">
+
     <div class="modal-header">
       <h2>Confirmar reserva</h2>
       <button class="close-button" (click)="cerrarModal()">×</button>
@@ -88,7 +91,9 @@
 </div>
 
 <div class="modal-backdrop" *ngIf="mostrarModalConfirmacion">
-  <div class="modal-container">
+  <div class="modal-container"
+       [ngClass]="{'cerrando': cerrandoConfirmacion}"
+       (animationend)="onAnimationEnd('confirmacion')">
     <div class="modal-header">
       <h2>Reserva realizada</h2>
       <button class="close-button" (click)="cerrarModalConfirmacion()">×</button>
@@ -110,7 +115,9 @@
 
 
 <div class="modal-backdrop" *ngIf="mostrarModalError">
-  <div class="modal-container">
+  <div class="modal-container"
+       [ngClass]="{'cerrando': cerrandoError}"
+       (animationend)="onAnimationEnd('error')">
     <div class="modal-header">
       <h2>Reserva realizada</h2>
       <button class="close-button" (click)="cerrarModalError()">×</button>

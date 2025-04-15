@@ -12,9 +12,11 @@ body {
     overflow: hidden;
 }
 
-h2{
+h2 {
     margin-bottom: 5%;
     color: #3E5975;
+    font-size: 28px;
+    font-weight: bold;
 }
 
 .container {
@@ -53,30 +55,50 @@ h2{
 
 }
 
-.facilidad{
+.facilidad {
+    display: flex;
+    align-items: stretch;
+    background-color: #fdf6fd; 
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(111, 138, 161, 0.25); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 30px;
+    border: 1px solid #CFB997; 
+  }
+  
+  .facilidad:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(111, 138, 161, 0.35);
+  }
+  
+  .imagen-facilidad {
+    width: 280px;
+    height: auto;
+    flex-shrink: 0;
+  }
+  
+  .imagen-facilidad img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .descripcion-facilidad {
+    padding: 24px;
+    background: linear-gradient(to right, #7B8FA1 , #3E5975);;
+    flex: 1;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 50%;
-    margin-bottom: 5%;
-
-    .imagen-facilidad{
-        width: 30%;
-        height: 100%;
-    }
-    .descripcion-facilidad{
-        width: 65%;
-        height: 100%;
-    }
-    .imagen-facilidad img{
-        width: 100%;
-        border-radius: 5px;
-    }
-    .descripcion-facilidad p{
-        width: 100%;
-        height: 100%;
-        padding-right: 1%;
-        color: #3E5975;
-    }
-}
+    justify-content: center;
+  }
+  
+  .descripcion-facilidad p {
+    color: #fff; 
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0;
+    text-align: justify;
+  }
+  

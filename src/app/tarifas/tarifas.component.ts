@@ -21,7 +21,7 @@ export class TarifasComponent implements OnInit {
   }
 
   ObtenerTarifas(){
-    let apiUrl = 'http://localhost:5063/api/TipoHabitacion/ObtenerOfertas';
+    let apiUrl = 'http://arenaymar.somee.com/api/TipoHabitacion/ObtenerOfertas';
     this.http.get<any[]>(apiUrl).subscribe({
       next: (response) => {
         if (response.length === 0) {
