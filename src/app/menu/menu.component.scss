@@ -301,13 +301,14 @@
     border: none;
     font-size: 2rem;
     cursor: pointer;
+    color: black;
   }
 
   .header {
     position: fixed;
     top: 0;
     left: 0;
-    width: auto;
+    width: 94%;
     height: 70px;
     z-index: 1000;
   
@@ -331,5 +332,46 @@
 
   .sidebar.active {
     display: block;
+  }
+
+  .publicidad {
+    border: 3px solid #f7bf7a;
+    padding: 10px;
+    background: #cfb997;
+    color: #3e5975;
+    font-weight: bold;
+    border-radius: 10px;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto 0;
+    margin-top: 6%;
+
+    .contenedor-publicidad {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      a {
+        width: 100%;
+        height: 100%;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: fill;
+          border-radius: 8px;
+          display: block;
+        }
+      }
+
+      &.entrar-derecha {
+        animation: entrarDesdeLaDerecha 0.4s ease-in-out;
+      }
+    }
   }
 }
