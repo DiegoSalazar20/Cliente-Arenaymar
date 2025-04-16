@@ -52,7 +52,7 @@
   </section>
 </div>
 
-<div class="modal-backdrop" *ngIf="mostrarModal" @animacionSalto>
+<div class="modal-backdrop" *ngIf="mostrarModal">
   <div class="modal-container"
        [ngClass]="{'cerrando': cerrandoModal}"
        (animationend)="onAnimationEnd('modal')">

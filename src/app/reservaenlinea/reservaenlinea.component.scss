@@ -574,19 +574,30 @@ select:hover {
 
 @media (max-width: 480px) {
   html, body {
-    overflow: auto;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #3E5975;
+    overflow: hidden;
   }
   
   .container {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: grid;
-    grid-template-columns: 1fr; 
-    grid-template-rows: auto auto;  
-    gap: 10px;
-    padding: 10px;
-    padding-top: 130px;  
-    overflow: visible;
-    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 20px;
+    background: #3E5975;
+    color: #F9F9F9;
+    padding: 20px;
+    padding-top: 100px;
+    overflow: hidden;
+    margin: 0;
   }
   
   app-menu {
@@ -596,17 +607,20 @@ select:hover {
   .main-content {
     margin: 0;
     width: 100%;
-    height: auto;
-    overflow-y: visible;
-    padding: 10px;  
+    height: calc(100vh - 145px);
+    overflow-y: auto;
+    padding: 20px;
   }
   
   .main-content .content-wrapper {
     display: block;
-    gap: 10px;
+    gap: 20px;
   }
   
   .main-content .banner {
+    width: 100%;
     max-width: 100%;
+    height: auto;
+    border-radius: 10px;
   }
 }
