@@ -11,44 +11,25 @@ import { MenuComponent } from '../menu/menu.component';
   styleUrl: './contactenos.component.scss'
 })
 export class ContactenosComponent implements OnInit {
-  facilidades: any[] = [];
-  seleccionada: any = null;
   errorCargando: boolean = false;
   textoContactenosTelefono: string = '';
   textoContactenosCorreo: string = '';
   textoContactenosApartado: string = '';
 
-  private apiUrl = 'https://arenaymar-frdyg5caarhsd2g5.eastus-01.azurewebsites.net/api/Facilidades/Visibles';
   private apiUrlContactenos = 'https://arenaymar-frdyg5caarhsd2g5.eastus-01.azurewebsites.net/api/Contactenos';
 
   constructor(private http: HttpClient) {}
  
   ngOnInit(): void {
-    this.cargarFacilidades();
-    this.cargarTextoContactenosTelefono();
-    this.cargarTextoContactenosCorreo();
-    this.cargarTextoContactenosA();
+    this.cargarTextoContactenos();
   }
 
-
-
-  cargarFacilidades() {
-    this.http.get<any[]>(this.apiUrl).subscribe({
-      next: (data) => {
-        this.facilidades = data;
-        this.seleccionada = data[0];
-      },
-      error: (err) => {
-        console.error('Error al cargar facilidades:', err);
-        this.errorCargando = true;
-      }
-    });
-  }
-
-  cargarTextoContactenosTelefono() {
+  cargarTextoContactenos() {
     this.http.get<any>(this.apiUrlContactenos).subscribe({
       next: (data) => {
         this.textoContactenosTelefono = data.telefono;
+        this.textoContactenosCorreo= data.correo;
+        this.textoContactenosApartado= data.apdoPostal;
       },
       error: (err) => {
         console.error('Error al cargar el texto sobre nuestros contactos:', err);
@@ -56,33 +37,4 @@ export class ContactenosComponent implements OnInit {
       }
     });
   }
-
-  cargarTextoContactenosCorreo() {
-    this.http.get<any>(this.apiUrlContactenos).subscribe({
-      next: (data) => {
-        this.textoContactenosCorreo = data.correo;
-      },
-      error: (err) => {
-        console.error('Error al cargar el texto sobre nuestros contactos:', err);
-        this.errorCargando = true;
-      }
-    });
-  }
-
-  cargarTextoContactenosA() {
-    this.http.get<any>(this.apiUrlContactenos).subscribe({
-      next: (data) => {
-        this.textoContactenosApartado = data.apdoPostal;
-      },
-      error: (err) => {
-        console.error('Error al cargar el texto sobre nuestros contactos:', err);
-        this.errorCargando = true;
-      }
-    });
-  }
-
-  seleccionar(facilidad: any) {
-    this.seleccionada = facilidad;
-  }
-
 }

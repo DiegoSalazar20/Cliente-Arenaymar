@@ -22,11 +22,18 @@ export class MenuComponent implements OnInit {
   indiceActual: number = 0;
   animacionPendiente: boolean = false;
   public menuOpen: boolean = false;
+  public rutaActual: string = '';
 
   @ViewChild('imagen') imagen!: ElementRef<HTMLImageElement>;
 
 
   ngOnInit(): void {
+    
+    this.rutaActual = this.router.url;
+    this.router.events.subscribe(() => {
+      this.rutaActual = this.router.url;
+    });
+
     this.http.get<any[]>(this.apiPublicidad).subscribe((datos) => {
       this.listaPublicidades = datos;
     });
