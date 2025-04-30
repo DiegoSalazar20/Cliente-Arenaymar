@@ -7,13 +7,13 @@
 
 <nav class="sidebar" [class.active]="menuOpen">
   <ul>
-    <li (click)="redirigir('/home')"><a>Home</a></li>
-    <li (click)="redirigir('/sobrenosotros')"><a>Sobre Nosotros</a></li>
-    <li (click)="redirigir('/facilidades')"><a>Facilidades</a></li>
-    <li (click)="redirigir('/comollegar')"><a>¿Cómo llegar?</a></li>
-    <li (click)="redirigir('/tarifas')"><a>Tarifas</a></li>
-    <li (click)="redirigir('/reservaenlinea')"><a>Reservar en Línea</a></li>
-    <li (click)="redirigir('/contactenos')"><a class="holographic-card">Contáctenos</a></li>
+    <li [class.activo]="rutaActual.includes('/home')" (click)="redirigir('/home')"><a>Home</a></li>
+    <li [class.activo]="rutaActual.includes('/sobrenosotros')" (click)="redirigir('/sobrenosotros')"><a>Sobre Nosotros</a></li>
+    <li [class.activo]="rutaActual.includes('/facilidades')" (click)="redirigir('/facilidades')"><a>Facilidades</a></li>
+    <li [class.activo]="rutaActual.includes('/comollegar')" (click)="redirigir('/comollegar')"><a>¿Cómo llegar?</a></li>
+    <li [class.activo]="rutaActual.includes('/tarifas')" (click)="redirigir('/tarifas')"><a>Tarifas</a></li>
+    <li [class.activo]="rutaActual.includes('/reservaenlinea')" (click)="redirigir('/reservaenlinea')"><a>Reservar en Línea</a></li>
+    <li [class.activo]="rutaActual.includes('/contactenos')" (click)="redirigir('/contactenos')"><a class="holographic-card">Contáctenos</a></li>
   </ul>
 
   <aside class="publicidad" *ngIf="listaPublicidades.length > 0">
