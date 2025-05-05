@@ -30,8 +30,13 @@
         </div>
 
         <div class="boton-centrado">
-          <button type="submit">Consultar disponibilidad</button>
+          <button type="submit" [disabled]="cargandoConsulta">
+            <ng-container *ngIf="!cargandoConsulta">Consultar disponibilidad</ng-container>
+            <div *ngIf="cargandoConsulta" class="cargando"></div>
+          </button>
         </div>
+
+        
 
         <div *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</div>
         <div *ngIf="mensajeInfo" class="mensaje-info">{{ mensajeInfo }}</div>
@@ -131,6 +136,10 @@
       <button class="btn-confirm" (click)="cerrarModalError()">Aceptar</button>
     </div>
   </div>
+</div>
+
+<div class="spinner-central-backdrop" *ngIf="mostrarSpinnerCentral">
+  <div class="spinner-central"></div>
 </div>
 
 

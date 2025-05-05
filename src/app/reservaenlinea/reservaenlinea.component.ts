@@ -4,12 +4,21 @@ import { HttpClient, HttpClientModule, HttpParams } from '@angular/common/http';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+interface BloqueoRespuesta {
+  success: boolean;
+  idHabitacion: number;
+  token: string;
+  expiracion: string;
+  message: string;
+}
+
 @Component({
   selector: 'app-reservaenlinea',
   imports: [CommonModule, MenuComponent, HttpClientModule, FormsModule],
   templateUrl: './reservaenlinea.component.html',
   styleUrl: './reservaenlinea.component.scss'
 })
+
 export class ReservaenlineaComponent {
   fechaLlegada!: Date;
   fechaSalida!: Date;
@@ -35,12 +44,23 @@ export class ReservaenlineaComponent {
   cerrandoConfirmacion: boolean = false;
   cerrandoError: boolean = false;
 
+  cargandoConsulta: boolean = false;
+
+  mostrarSpinnerCentral: boolean = false;
+
+  bloqueoToken!: string;
+  idHabitacionBloqueada!: number;
+  
+
   constructor(private http: HttpClient, ){}
+
+  
 
   ConsultarDisponibilidad() {
     this.tiposDisponibles=[];
     this.mensajeError='';
     this.mensajeInfo='';
+    
 
     if (!this.fechaLlegada || !this.fechaSalida) {
       this.mensajeError = 'Debe ingresar ambas fechas.';
@@ -58,6 +78,8 @@ export class ReservaenlineaComponent {
       this.mensajeError = 'La fecha de llegada no puede ser posterior a la fecha de salida.';
       return;
     }
+
+    this.cargandoConsulta=true;
     let params = new HttpParams()
       .set('fechainicio', fechaLlegada.toISOString())
       .set('fechafin', fechaSalida.toISOString());
@@ -77,14 +99,17 @@ export class ReservaenlineaComponent {
           } else {
             this.mensajeInfo = "No hay habitaciones disponibles para esas fechas.";
             this.tiposDisponibles = [];
+            this.cargandoConsulta=false;
           }
         } else {
           this.tiposDisponibles = response;
+          this.cargandoConsulta=false;
         }
       },
       error: (error) => {
         console.error(error);
         this.mensajeError = 'Ocurrió un error al consultar la disponibilidad.';
+        this.cargandoConsulta=false;
       }
     });
   }
@@ -117,25 +142,55 @@ export class ReservaenlineaComponent {
         if (response.length === 0) {
           this.mensajeInfo = "No hay habitaciones disponibles para esas fechas.";
           this.tiposDisponibles = [];
+          this.cargandoConsulta=false;
         } else {
           this.tiposDisponibles = response;
+          this.cargandoConsulta=false;
         }
       },
       error: (error) => {
         console.error(error);
         this.mensajeError = 'Ocurrió un error al consultar la disponibilidad.';
+        this.cargandoConsulta=false;
       }
     });
   }
 
   abrirModalReserva(tipo: any) {
-    this.tipoSeleccionado = tipo;
-    this.nombreReserva = '';
-    this.apellidoReserva = '';
-    this.emailReserva = '';
-    this.tarjetaCompleta = '';
-    this.mensajeErrorModal = '';
-    this.mostrarModal = true;
+
+    this.mostrarSpinnerCentral=true;
+
+    const url = 
+      `https://arenaymar-frdyg5caarhsd2g5.eastus-01.azurewebsites.net` +
+      `/api/Habitacion/BloquearHabitacion` +
+      `?idTipoHabitacion=${tipo.IdTipoHabitacion}` +
+      `&fechaLlegada=${encodeURIComponent(this.fechaLlegada+'')}` +
+      `&fechaSalida=${encodeURIComponent(this.fechaSalida+'')}`;
+
+    this.http.post<BloqueoRespuesta>(url, null).subscribe({
+      next: hold => {
+        if (!hold.success) {
+          this.mensajeError = hold.message;
+          return;
+        }
+        this.idHabitacionBloqueada = hold.idHabitacion;
+        this.bloqueoToken       = hold.token;
+
+        this.tipoSeleccionado   = tipo;
+        this.nombreReserva      = '';
+        this.apellidoReserva    = '';
+        this.emailReserva       = '';
+        this.tarjetaCompleta    = '';
+        this.mensajeErrorModal  = '';
+        this.mostrarSpinnerCentral=false;
+        this.mostrarModal       = true;
+      },
+      error: err => {
+        console.error('Error al bloquear habitación', err);
+        this.mostrarSpinnerCentral=false;
+        this.mensajeError = 'No se pudo bloquear la habitación. Intente de nuevo.';
+      }
+    });
   }
 
   abrirModalConfirmacion() {
@@ -191,6 +246,8 @@ export class ReservaenlineaComponent {
       return;
     }
 
+    this.mostrarSpinnerCentral = true;
+
     const fechaLlegada = new Date(this.fechaLlegada);
     const fechaSalida = new Date(this.fechaSalida);
 
@@ -198,7 +255,8 @@ export class ReservaenlineaComponent {
     ultimos4+='';
 
     let body: any = {
-      idTipoHabitacion: this.tipoSeleccionado.IdTipoHabitacion,
+      idHabitacion: this.idHabitacionBloqueada,
+      bloqueoToken: this.bloqueoToken,
       nombre: this.nombreReserva,
       apellidos: this.apellidoReserva,
       correo: this.emailReserva,
@@ -212,6 +270,8 @@ export class ReservaenlineaComponent {
     }).subscribe({
       next: (resp: any) => {
         console.log('Reserva exitosa', resp);
+        this.bloqueoToken='';
+        this.idHabitacionBloqueada=0
         this.enviarCorreoReserva(resp.codigoReserva);
         this.cerrarModal();
         this.tiposDisponibles=[];
@@ -219,11 +279,13 @@ export class ReservaenlineaComponent {
       error: (err) => {
         console.error(err);
         if (err.status === 400 && err.error && err.error.success === false) {
+          this.mostrarSpinnerCentral = false;
           this.cerrarModal();
           this.mensajeInfo = "No hay habitaciones del tipo seleccionado, pero se mostrarán otros disponibles.";
           this.CargarDisponibles();
           this.abrirModalError();
         } else {
+          this.mostrarSpinnerCentral = false;
           this.mensajeErrorModal = 'Ocurrió un error al registrar la reserva.';
         }
       }
@@ -272,9 +334,11 @@ export class ReservaenlineaComponent {
       responseType: 'text'
     }).subscribe({
       next: (resp: string) => {
+        this.mostrarSpinnerCentral = false;
         this.abrirModalConfirmacion();
       },
       error: (err) => {
+        this.mostrarSpinnerCentral = false;
         console.error('Error al enviar el correo:', err);
       }
     });
