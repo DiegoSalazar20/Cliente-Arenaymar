@@ -50,6 +50,8 @@ export class ReservaenlineaComponent {
 
   bloqueoToken!: string;
   idHabitacionBloqueada!: number;
+
+  hoy: string = new Date().toISOString().split('T')[0];
   
 
   constructor(private http: HttpClient, ){}
