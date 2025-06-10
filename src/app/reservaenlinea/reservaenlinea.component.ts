@@ -51,6 +51,8 @@ export class ReservaenlineaComponent {
   bloqueoToken!: string;
   idHabitacionBloqueada!: number;
 
+  errores: string[] = [];
+
   hoy: string = new Date().toISOString().split('T')[0];
   
 
@@ -233,20 +235,35 @@ export class ReservaenlineaComponent {
   confirmarReserva() {
     this.mensajeError='';
     this.mensajeInfo='';
-    if (!this.nombreReserva || !this.apellidoReserva || !this.emailReserva || !this.tarjetaCompleta) {
-      this.mensajeErrorModal = 'Complete todos los campos.';
-      return;
-    }
+    this.errores=[];
+    if (!this.nombreReserva || this.nombreReserva.trim() === '') {
+    this.errores.push('El campo "Nombre" no puede estar en blanco.');
+  } else if (this.contieneCaracteresEspeciales(this.nombreReserva)) {
+    this.errores.push('El campo "Nombre" contiene caracteres no permitidos.');
+  }
 
-    if (!this.validarTarjetaLuhn(this.tarjetaCompleta)) {
-      this.mensajeErrorModal = 'La tarjeta no es válida.';
-      return;
-    }
+  if (!this.apellidoReserva || this.apellidoReserva.trim() === '') {
+    this.errores.push('El campo "Apellido" no puede estar en blanco.');
+  } else if (this.contieneCaracteresEspeciales(this.apellidoReserva)) {
+    this.errores.push('El campo "Apellido" contiene caracteres no permitidos.');
+  }
 
-    if(!this.validarEmail(this.emailReserva)){
-      this.mensajeErrorModal = 'Ingrese un correo electrónico válido.';
-      return;
-    }
+  if (!this.emailReserva || this.emailReserva.trim() === '') {
+    this.errores.push('El campo "Correo electrónico" no puede estar en blanco.');
+  } else if (!this.validarEmail(this.emailReserva)) {
+    this.errores.push('Ingrese un correo electrónico válido.');
+  }
+
+  if (!this.tarjetaCompleta || this.tarjetaCompleta.trim() === '') {
+    this.errores.push('El campo "Tarjeta" no puede estar en blanco.');
+  } else if (!this.validarTarjetaLuhn(this.tarjetaCompleta)) {
+    this.errores.push('El número de tarjeta no es válido.');
+  }
+
+  if (this.errores.length > 0) {
+    this.mensajeErrorModal = this.errores.join('\n');
+    return;
+  }
 
     this.mostrarSpinnerCentral = true;
 
@@ -350,4 +367,9 @@ export class ReservaenlineaComponent {
     const patron = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     return patron.test(email);
   }
+
+  private contieneCaracteresEspeciales(texto: string): boolean {
+  const patron = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/;
+  return !patron.test(texto);
+}
 }
